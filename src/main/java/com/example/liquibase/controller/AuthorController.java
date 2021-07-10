@@ -1,5 +1,6 @@
 package com.example.liquibase.controller;
 
+import com.example.liquibase.dto.AuthorsResponseDto;
 import com.example.liquibase.dto.BooksResponseDto;
 import com.example.liquibase.service.AuthorService;
 import javassist.NotFoundException;
@@ -21,13 +22,13 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping
-    public ResponseEntity<List<BooksResponseDto>> getAllBook() {
+    public ResponseEntity<List<AuthorsResponseDto>> getAllBook() {
         log.info("GET ALL AUTHORS");
         return new ResponseEntity(authorService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<List<BooksResponseDto>> getAuthor(@PathVariable(value = "id") Long id) throws NotFoundException {
+    public ResponseEntity<List<AuthorsResponseDto>> getBookId(@PathVariable(value = "id") Long id) throws NotFoundException {
         log.info("GET AUTHOR ID "+ id);
         return new ResponseEntity(authorService.findById(id), HttpStatus.OK);
     }

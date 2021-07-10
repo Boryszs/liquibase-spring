@@ -34,6 +34,6 @@ public class Books {
     @Column(name = "available")
     private Boolean available;
 
-    @ManyToMany(mappedBy = "books", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
     private List<Authors> authors;
 }

@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "authors")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Authors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +28,43 @@ public class Authors {
             inverseJoinColumns = {@JoinColumn(name = "book_id")})
     private List<Books> books;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public List<Books> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Books> books) {
+        this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        return "Authors{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '}';
+    }
 }

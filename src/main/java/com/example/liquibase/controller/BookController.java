@@ -1,5 +1,6 @@
 package com.example.liquibase.controller;
 
+import com.example.liquibase.dto.AuthorsDto;
 import com.example.liquibase.dto.BooksDto;
 import com.example.liquibase.dto.BooksResponseDto;
 import com.example.liquibase.service.BookService;
@@ -49,6 +50,13 @@ public class BookController {
     public ResponseEntity deleteBook(@PathVariable(value = "id") Long id) throws NotFoundException {
         log.info("DELETE BOOK ID "+ id);
         bookService.deleteById(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{id}")
+    public ResponseEntity addBookToAuthor(@PathVariable(value = "id") Long id,@RequestBody BooksDto booksDto) throws NotFoundException {
+        log.info("ADD BOOK TO AUTHOR ID "+ id+" "+booksDto);
+        bookService.addBook(id,booksDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

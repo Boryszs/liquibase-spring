@@ -1,6 +1,8 @@
 package com.example.liquibase.service.impl;
 
+import com.example.liquibase.dto.AuthorsDto;
 import com.example.liquibase.dto.AuthorsResponseDto;
+import com.example.liquibase.model.Authors;
 import com.example.liquibase.repository.AuthorRepository;
 import com.example.liquibase.service.AuthorService;
 import javassist.NotFoundException;
@@ -41,5 +43,15 @@ public class AuthorServiceImpl implements AuthorService {
         }else{
             throw new NotFoundException("Not found person on id:"+id);
         }
+    }
+
+    @Override
+    public void save(AuthorsDto authorsDto) {
+        authorRepository.save(modelMapper.map(authorsDto, Authors.class));
+    }
+
+    @Override
+    public void save(AuthorsResponseDto authorsResponseDto) {
+        authorRepository.save(modelMapper.map(authorsResponseDto,Authors.class));
     }
 }

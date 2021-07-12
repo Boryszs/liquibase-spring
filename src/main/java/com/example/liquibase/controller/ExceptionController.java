@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionController {
 
     @ExceptionHandler(value = {NotFoundException.class, Exception.class})
-    public ResponseEntity<MessageDto> resourceNotFoundException(NotFoundException notFoundException, Exception exception) {
-        return new ResponseEntity<MessageDto>(new MessageDto(notFoundException.getMessage()), HttpStatus.NOT_FOUND);
+    public ResponseEntity<MessageDto> resourceNotFoundException(Exception exception) {
+        exception.printStackTrace();
+        return new ResponseEntity<MessageDto>(new MessageDto(exception.getMessage()), HttpStatus.NOT_FOUND);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.liquibase.service;
 
+import com.example.liquibase.dto.BooksDto;
 import com.example.liquibase.dto.BooksResponseDto;
 import javassist.NotFoundException;
 
@@ -13,6 +14,8 @@ public interface BookService {
     BooksResponseDto findById(Long id) throws NotFoundException;
 
     void deleteById(Long id) throws NotFoundException;
+
+    void addBook(Long id, BooksDto booksDto) throws NotFoundException;
 
     long count();
 }

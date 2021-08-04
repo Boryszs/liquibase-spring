@@ -12,8 +12,10 @@ import lombok.extern.java.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,6 +49,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) throws NotFoundException {
         if (bookRepository.findById(id).isPresent()) {
             bookRepository.deleteById(id);
@@ -56,6 +59,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Modifying
+    @Transactional
     public void addBook(Long id, BooksDto booksDto) throws NotFoundException {
         Optional<Authors> authors = bookRepository.findAuthor(id);
         if (authors.isPresent()) {

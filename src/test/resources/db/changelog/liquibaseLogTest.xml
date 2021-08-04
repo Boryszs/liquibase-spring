@@ -1,0 +1,23 @@
+<?xml version ="1.0" encoding ="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20210804182621" author="Damian" runAlways="true">
+        <sqlFile path="database/00-delete-table.sql"></sqlFile>
+    </changeSet>
+    <changeSet id="20210804182021" author="Damian" runAlways="true">
+        <sqlFile path="database/01-create-authors.sql"></sqlFile>
+    </changeSet>
+    <changeSet id="20210804182121" author="Damian" runAlways="true">
+        <sqlFile path="database/02-create-books.sql"></sqlFile>
+    </changeSet>
+    <changeSet id="20210804182321" author="Damian" runAlways="true">
+        <sqlFile path="database/03-create-author-book.sql"></sqlFile>
+    </changeSet>
+    <changeSet id="20210804182421" author="Damian" runAlways="true">
+        <sqlFile path="database/04-insert-data.sql"></sqlFile>
+    </changeSet>
+</databaseChangeLog >

@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class AuthorsDto {
 
-    private long id;
+    private Long id;
 
     private String name;
 

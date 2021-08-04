@@ -6,21 +6,25 @@ import com.example.liquibase.model.Authors;
 import com.example.liquibase.repository.AuthorRepository;
 import com.example.liquibase.service.AuthorService;
 import javassist.NotFoundException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 @Log
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
     private final ModelMapper modelMapper = new ModelMapper();
+
+    @Autowired
+    public AuthorServiceImpl(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     @Override
     public List<AuthorsResponseDto> findAll() {

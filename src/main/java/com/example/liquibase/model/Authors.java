@@ -60,26 +60,6 @@ public class Authors {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Authors authors = (Authors) o;
-
-        if (id != authors.id) return false;
-        if (name != null ? !name.equals(authors.name) : authors.name != null) return false;
-        return surname != null ? surname.equals(authors.surname) : authors.surname == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Authors{" +
                 "id=" + id +

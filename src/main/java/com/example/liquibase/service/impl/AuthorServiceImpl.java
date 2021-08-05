@@ -2,6 +2,7 @@ package com.example.liquibase.service.impl;
 
 import com.example.liquibase.dto.AuthorsDto;
 import com.example.liquibase.dto.AuthorsResponseDto;
+import com.example.liquibase.mapper.Mapper;
 import com.example.liquibase.model.Authors;
 import com.example.liquibase.repository.AuthorRepository;
 import com.example.liquibase.service.AuthorService;
@@ -20,33 +21,34 @@ public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
     private final ModelMapper modelMapper = new ModelMapper();
+    private final Mapper<AuthorsResponseDto, Authors> authorMapperImpl;
 
     @Autowired
-    public AuthorServiceImpl(AuthorRepository authorRepository) {
+    public AuthorServiceImpl(AuthorRepository authorRepository, Mapper<AuthorsResponseDto, Authors> authorMapperImpl) {
         this.authorRepository = authorRepository;
+        this.authorMapperImpl = authorMapperImpl;
     }
 
     @Override
     public List<AuthorsResponseDto> findAll() {
-        return authorRepository.findAll().stream().map(authors -> modelMapper.map(authors, AuthorsResponseDto.class)).collect(Collectors.toList());
+        return authorRepository.findAll().stream().map(authors -> authorMapperImpl.toDto(authors)).collect(Collectors.toList());
     }
 
     @Override
     public AuthorsResponseDto findById(Long id) throws NotFoundException {
-        if(authorRepository.findById(id).isPresent()){
-           return modelMapper.map(authorRepository.findById(id).get(), AuthorsResponseDto.class);
-        }else{
-            throw new NotFoundException("Not found person on id:"+id);
-        }
+        return authorMapperImpl
+                .toDto(authorRepository.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Not found person on id:" + id)));
     }
 
     @Override
-    public void deleteById(Long id) throws NotFoundException {
-        if(authorRepository.findById(id).isPresent()){
+    public void deleteById(Long id) {
+        if (authorRepository.existsById(id)) {
             authorRepository.deleteById(id);
-        }else{
-            throw new NotFoundException("Not found person on id:"+id);
+        } else {
+            new NotFoundException("Not found person on id:" + id);
         }
+
     }
 
     @Override
@@ -56,6 +58,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void save(AuthorsResponseDto authorsResponseDto) {
-        authorRepository.save(modelMapper.map(authorsResponseDto,Authors.class));
+        authorRepository.save(modelMapper.map(authorsResponseDto, Authors.class));
     }
 }

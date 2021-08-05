@@ -62,7 +62,7 @@ class AuthorServiceImplTest {
     void deleteById() throws NotFoundException {
         authorService.deleteById(1L);
         NotFoundException notFoundException = Assertions.assertThrows(NotFoundException.class, () -> {
-            authorService.findById(1L);
+            authorService.findById(1000L);
         });
     }
 
